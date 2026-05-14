@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: unpackr
+Version: 0.2.0
+Summary: Detect and unpack Windows packers / wrappers (extensible handlers).
+Author: viet
+License: MIT
+Requires-Python: >=3.9

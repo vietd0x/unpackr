@@ -1,0 +1,17 @@
+pyproject.toml
+src/unpackr/__init__.py
+src/unpackr/__main__.py
+src/unpackr/cli.py
+src/unpackr/core.py
+src/unpackr/pe.py
+src/unpackr/registry.py
+src/unpackr.egg-info/PKG-INFO
+src/unpackr.egg-info/SOURCES.txt
+src/unpackr.egg-info/dependency_links.txt
+src/unpackr.egg-info/entry_points.txt
+src/unpackr.egg-info/top_level.txt
+src/unpackr/handlers/__init__.py
+src/unpackr/handlers/dotnet_singlefile.py
+src/unpackr/handlers/pyinstaller.py
+src/unpackr/handlers/upx.py
+tests/test_smoke.py

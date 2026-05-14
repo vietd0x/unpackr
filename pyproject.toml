@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unpackr"
+version = "0.2.0"
+description = "Detect and unpack Windows packers / wrappers (extensible handlers)."
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "viet"}]
+dependencies = []
+
+[project.scripts]
+unpackr = "unpackr.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

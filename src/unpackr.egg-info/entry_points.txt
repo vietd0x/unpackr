@@ -1,0 +1,2 @@
+[console_scripts]
+unpackr = unpackr.cli:main
