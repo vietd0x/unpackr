@@ -9,7 +9,10 @@ description = "Detect and unpack Windows packers / wrappers (extensible handlers
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [{name = "viet"}]
-dependencies = []
+dependencies = [
+    # LZ4 block decompression for Xamarin.Android assembly stores (XALZ).
+    "lz4>=4.0",
+]
 
 [project.scripts]
 unpackr = "unpackr.cli:main"

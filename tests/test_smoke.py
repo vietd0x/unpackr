@@ -18,6 +18,7 @@ def test_handlers_registered():
     expected = {
         "dotnet-singlefile", "pyinstaller", "upx",
         "nuitka", "nsis", "go-binary", "innosetup", "pe-protector",
+        "xamarin-store",
     }
     assert expected.issubset(names), expected - names
 

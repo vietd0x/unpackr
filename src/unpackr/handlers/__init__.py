@@ -20,6 +20,7 @@ _HANDLER_MODULES = [
     "unpackr.handlers.costura",
     "unpackr.handlers.java_wrapper",
     "unpackr.handlers.msi",
+    "unpackr.handlers.xamarin",
 ]
 
 for _name in _HANDLER_MODULES:

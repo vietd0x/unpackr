@@ -2,10 +2,11 @@
 
 Detect and unpack Windows packers / wrappers. Extensible via handler plugins.
 
-Given a suspicious `.exe`, `unpackr` tells you what packed it (PyInstaller,
-Nuitka, .NET SingleFile, NSIS, Inno Setup, UPX, AutoIt, 7z SFX, MSI, Go,
-Costura, Java wrapper, commercial PE protectors, ...) and — where possible —
-extracts the embedded payload.
+Given a suspicious `.exe` (or Android `.so`), `unpackr` tells you what packed
+it (PyInstaller, Nuitka, .NET SingleFile, NSIS, Inno Setup, UPX, AutoIt, 7z
+SFX, MSI, Go, Costura, Java wrapper, commercial PE protectors,
+Xamarin.Android assembly stores, ...) and — where possible — extracts the
+embedded payload.
 
 ## Install
 
@@ -15,7 +16,9 @@ From a clone:
 pip install -e .
 ```
 
-Requires Python 3.9+. No runtime dependencies.
+Requires Python 3.9+. The only runtime dependency is [`lz4`](https://pypi.org/project/lz4/),
+used to decompress Xamarin.Android assemblies (`XALZ` blocks); every other
+handler is pure standard library.
 
 ## CLI
 
@@ -48,6 +51,7 @@ unpackr handlers
   costura            Costura.Fody-embedded .NET assemblies (detect only)
   java-wrapper       Java app wrapped in EXE (install4j/Launch4j/exe4j/JSmooth)
   msi                Windows Installer (MSI) database (detect only; unpack via lessmsi)
+  xamarin-store      Xamarin.Android assembly store (libassemblies/libxamarin-app.so)
 ```
 
 ### Detect
@@ -112,6 +116,25 @@ Flags:
 Handlers marked *detect only* in the table above will refuse to extract;
 `unpackr` prints the recommended external tool (e.g. `7z`, `innounp`,
 `Exe2Aut`, `upx -d`, `lessmsi`).
+
+### Xamarin / .NET-for-Android APKs
+
+The `xamarin-store` handler reads the **native assembly-store library**, not
+the `.apk` container. An APK is just a ZIP, so extract the store `.so` first
+and point `unpackr` at it:
+
+```
+# list the native libs inside the APK (any unzip tool works)
+unzip -l app.apk "lib/*"
+
+# .NET-for-Android / MAUI keep the assembly store (XABA blob) in one of:
+#   lib/<abi>/libassemblies.<abi>.so
+#   lib/<abi>/libxamarin-app.so
+unpackr extract lib/arm64-v8a/libassemblies.arm64-v8a.so -o unpacked/
+```
+
+The presence of `lib/<abi>/libmonodroid.so` is the tell-tale sign that an APK
+is a Xamarin / .NET-for-Android app.
 
 ### Auto-pick rule
 
